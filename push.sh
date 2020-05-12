@@ -11,6 +11,7 @@ fi
 
 echo ${pushmessage}
 
+git pull origin master
 git add -A
 git commit -m "${pushmessage}"
 git push origin master
