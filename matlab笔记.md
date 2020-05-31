@@ -1186,3 +1186,264 @@ ha = axes('Parent', hf, 'Units', 'normalized' ,'Position', [.1 .1 .6 .5]);
 get(ha);
 ```
 
+# 七、matlab符号运算
+
+## 符号常量和符号变量
+
+**语法:**
+	
+
+```matlab
+% 建立一个符号变量
+a= sym('a');
+syms a;
+% 建立一个符号常量
+c= sym('3');
+```
+
+
+
+## 符号表达式
+
+**语法:**
+		
+
+```matlab
+% 法一 建立一个符号表达式 类型为char
+f='3*x+ 6';
+% 法二 建立一个符号表达式 类型为sym
+syms x
+f=3*x+ 6;
+```
+
+## 符号四则运算
+
+```matlab
+% +       -      *       /      ^
+% symadd symsub symmul symdiv sympow 函数
+```
+
+
+
+## 符号表达式化简
+
+```matlab
+% simplify 
+>> syms x y
+s = (x^2 + y^2)^2 + (x^2 - y^2)^2;
+simplify(s)
+
+ans =
+ 
+2*x^4 + 2*y^4
+ 
+```
+
+
+
+## 符号与数值的转化
+
+```matlab
+% eval函数 符号转换为数值
+c= sym('3');
+eval(c)
+
+ans =
+
+     3
+```
+
+## 符号表达式的因式分解和展开
+
+●factor   ——因式分解
+
+●expand ——展开
+
+●collect   ——合并同类项
+
+```matlab
+% 因式分解，展开,合并同类项
+
+% 因式分解
+>> syms a b x y;
+f1 = a^3 - b^3;
+factor(f1)
+
+ans =
+ 
+[ a - b, a^2 + a*b + b^2]
+
+% 展开
+>> f2 = (3*x^2 + 8*y^2) * (-x^2 + 3*y);
+expand(f2)
+
+ans =
+ 
+- 3*x^4 - 8*x^2*y^2 + 9*x^2*y + 24*y^3
+
+% 合并同类项
+>> f3 = 3*x^2 + 4*x^2 + 5*x^2*y;
+collect(f3)
+
+ans =
+ 
+(5*y + 7)*x^2
+```
+
+
+
+## 符号矩阵
+
+●构建方式和数值矩阵一 致
+
+●转置
+
+​		transpose 转置
+
+●其他使用在数值矩阵中的函数也可以直接用于符号矩阵
+
+```matlab
+% 符号矩阵
+a1 = [x x + y; y y^2]
+transpose(a1)
+```
+
+## 符号函数的求解
+
+```matlab
+>> % 符号函数值的求解 subs函数
+syms x
+f1 = x^3 - 9;
+subs(f1, 3) % 求解f1在x = 3处的值
+ 
+ans =
+ 
+18
+```
+
+## 符号极限
+
+●limit函数
+
+```matlab
+>> % 符号极限/微分/积分
+syms x
+y = (sin(x + a) - sin(x - a))/x
+limit(y, 0)
+ans =
+ 
+piecewise(in(real(a)/pi, 'integer') & (sinh(imag(a)) == 0 | in(real(a)/pi - 1/2, 'integer')), 0, in(real(a)/pi, 'integer') & 0 < cos(real(a))*sinh(imag(a)) | in(real(a)/pi, 'integer') & cos(real(a))*sinh(imag(a)) < 0 | sinh(imag(a)) ~= 0 & ~in(real(a)/pi - 1/2, 'integer'), limit((sin(a - x) + sin(a + x))/x, x, 0))
+```
+
+
+
+## 符号微分
+
+●diff 函数  
+
+```matlab
+%  diff(x, n)  对x求n阶导
+>> y2 = sin(x);
+diff(y2)  
+diff(y2, 2)
+diff(y2, 3)
+
+ans =
+ 
+cos(x)
+ 
+ans =
+ 
+-sin(x)
+ 
+ans =
+ 
+-cos(x)
+```
+
+## 符号积分
+
+int函数
+
+```matlab
+>> y3 = log(x)
+int(y3) % 不定积分
+
+ans =
+ 
+x*(log(x) - 1)
+
+>> y4 = abs(1 - x) 
+int(y4, 1, 2)   % 求解函数在区间[1,2]的定积分
+
+ans =
+ 
+1/2
+```
+
+## 符号级数
+
+> **符号级数求和**
+>
+> ​	symsum
+>
+> **泰勒级数**
+>
+> ​	taylor
+
+```matlab
+>> % 符号级数求和
+syms n
+f = 1/n^2;
+s1 = symsum(f, n, 1, inf) 
+% 函数名 变量名 左边界 右边界
+ 
+s1 =
+ 
+pi^2/6
+
+>> % 泰勒展开
+y = exp(x);
+taylor(y, x, 0)
+ 
+ans =
+ 
+x^5/120 + x^4/24 + x^3/6 + x^2/2 + x + 1
+```
+
+## 符号方程求解
+
+### 符号代数方程和方程组
+
+solve
+
+```matlab
+% 代数方程
+clear
+syms x
+eval(solve(x + x*exp(x) - 10))
+
+% 方程组
+clear
+clc
+syms x y
+[x, y] = solve(1/x^3 + 1/y^3 -28, 1/x + 1/y - 4, x, y)
+```
+
+
+
+### 符号常微分方程
+
+dsolve
+
+```matlab
+>> % 微分方程
+clear
+clc
+dsolve('Dy = y + 1','x') % 是dy/dx = y + 1 的解
+% Dy代表求一阶导，D2y代表求二阶导，以此类推
+ans =
+ 
+C7*exp(x) - 1
+```
+
