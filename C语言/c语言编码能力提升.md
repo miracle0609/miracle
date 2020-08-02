@@ -518,6 +518,12 @@ n<sup>3</sup> = 3 $\sum_{i=1}^n{i^2}$ - 3$\sum_{i=1}^n{i}$ + n
 
 ![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200730142535.png)
 
+
+
+![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200801184923.png)
+
+
+
 ```c
 #include <stdio.h>
 #define n 100
@@ -661,6 +667,171 @@ int main() {
 	scanf("%lf", &x);
 	printf("%lf", PI / 180.0 * x);
 	return 0;
+}
+```
+
+# inttypes头文件讲解
+
+```c
+#include <stdio.h>
+#include <inttypes.h>
+
+int main() {
+    int32_t a = 123;
+    int64_t b = 256;
+    int8_t c = 123;
+    printf("a = %lu, b = %lu\n", sizeof(a), sizeof(b));
+    printf("c = %" PRId8 "\n", c);
+    printf("sizeof(c) = %" PRIu64 "\n", sizeof(c));
+    printf("INT32_MIN = %d\n", INT32_MIN);
+    printf("INT32_MAX = %d\n", INT32_MAX);
+    printf("INT16_MIN = %d\n", INT16_MIN);
+    printf("INT16_MAX = %d\n", INT16_MAX);
+    printf("INT8_MIN = %d\n", INT8_MIN);
+    printf("INT8_MAX = %d\n", INT8_MAX);
+    printf("PRId64 = %s\n", PRId64);
+    printf("PRId32 = %s\n", PRId32);
+    printf("PRId16 = %s\n", PRId16);
+    return 0;
+}
+```
+
+# 欧拉计划028
+
+![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200802110843.png)
+
+
+
+**题目大意：**
+
+> 从数字1开始，沿顺时针方向向右移动，形成5乘5的螺旋，如下所示：
+>
+> 可以验证对角线上的数字之和为101。以相同方式形成的1001 x 1001螺旋中的对角线上的数字的总和是多少？
+
+**法一：**
+
+观察如上矩阵，可以得到如下结论:
+
+- 第n圈的矩阵边长为m = 2*n-1*
+- 第n圈的矩阵右上角的值为m<sup>2</sup>
+- 根据2点观察，可知:
+  			左上角为m<sup>2</sup>-m+1，左下角m<sup>2</sup>-2*m+2
+  			右下角为m<sup>2</sup>-3*m+3
+- 每一圈上四个角的值相加和为: 4*m<sup>2</sup>-6*m+6
+
+```c
+#include <stdio.h>
+
+int main() {
+    int sum = 1;
+    for (int l = 3; l <= 1001; l += 2) {
+        sum += 4 * l * l - 6 * l + 6;
+    }
+    printf("%d\n", sum);
+    return 0;
+}
+```
+
+**法二：**时间复杂度：O（1）
+
+采用求奇数平方和的方法
+
+![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200801184923.png)
+
+```c
+#include <stdio.h>
+
+const int n = 1001;
+
+int main() {
+    int sum = 1;
+    int sum1 = n * (n + 1) * (n + 2) / 6 - 1;
+    int sum2 = (n / 2) * (3 + 1001) / 2;
+    int sum3 = (n / 2) * 6;
+    sum += 4 * sum1 - 6 * sum2 + sum3;
+    printf("%d\n", sum);
+    return 0;
+}
+```
+
+
+
+# 欧拉计划030
+
+![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200802114321.png)
+
+> 1、枚举每个数字N，判断N的每一位的5次方之和是否等于其本身
+>
+> 2、求枚举的上界
+
+![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200802114337.png)
+
+> 一个7位数的每一位的5次方和，不可能为一个7位数，最多是一个6位数的每一位5次方和等于一个6位数。故上界定到9<sup>5</sup>* 6
+
+```c
+#include <stdio.h>
+#include <math.h>
+
+const int N = pow(9, 5) * 6;
+
+int val(int n) {
+    int sum = 0, tmp = n;
+    while (tmp) {
+        sum += pow(tmp % 10, 5);
+        tmp /= 10;
+    }
+    return sum == n;
+}
+
+int main() {
+    int sum = 0;
+    for (int i = 2; i <= N; i++) {
+        if (!val(i)) continue;
+        sum += i;
+    }
+    printf("%d\n", sum);
+    return 0;
+}
+```
+
+
+
+# 欧拉计划004
+
+![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200802130049.png)
+
+
+
+**题目大意：**
+
+> 回文数在两个方向上都相同。 由两个两位数的乘积组成的最大回文数为9009 = 91 X 99。查找由两个3位数字的乘积组成的最大回文。
+
+![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200802130253.png)
+
+
+
+```c
+#include <stdio.h>
+
+int is_val(int n, int base) { //模拟整数翻转，base进制下的回文数判断
+    int sum = 0, tmp = n;
+    while (tmp) {
+        sum = sum * base + tmp % base;
+        tmp /= base;
+    }
+    return sum == n;
+}
+
+int main() {
+    int ans = 0;
+    for (int a = 100; a < 1000; a++) {
+        for (int b = a; b < 1000; b++) {
+            int t = a * b;
+            if (t > ans && is_val(t, 10)) ans = t;
+        }
+    }
+    printf("%d\n", ans);
+    return 0;
 }
 ```
 
