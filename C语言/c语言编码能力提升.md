@@ -254,7 +254,12 @@ shift + zz 可以快速保存
 
 > ctrl + v进入可视快 选择要剪切的内容后  按y 回到普通模式 按p
 
+# C语言数据类型及其范围
 
+如果是n位二进制数，那么无符号数的表示范围是0~（2^n) - 1；
+			     有符号数的表示范围是-2^(n - 1) ~(2^(n - 1)) -1
+
+![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/2020-08-04_164147.png)
 
 # C语言输入输出
 
@@ -716,7 +721,7 @@ int main() {
 - 第n圈的矩阵右上角的值为m<sup>2</sup>
 - 根据2点观察，可知:
   			左上角为m<sup>2</sup>-m+1，左下角m<sup>2</sup>-2*m+2
-  			右下角为m<sup>2</sup>-3*m+3
+        			右下角为m<sup>2</sup>-3*m+3
 - 每一圈上四个角的值相加和为: 4*m<sup>2</sup>-6*m+6
 
 ```c
@@ -832,6 +837,525 @@ int main() {
     }
     printf("%d\n", ans);
     return 0;
+}
+```
+
+# C语言关系运算符
+
+![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200802141119.png)
+
+> 只有0，null, ‘\0’是假的 其他都是真的
+
+!!(x)  对x进行归一化处理， x的值要么为0，要么为1
+
+# 分支结构
+
+![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200803142947.png)
+
+
+
+```c
+#include <stdio.h>
+
+int judge(int n) {
+    if (!n) {
+        printf("FOOLISH\n");
+    } else if (n < 60) {
+        printf("FALL\n");
+    } else if (n < 75) {
+        printf("MEDIUM\n");
+    } else if (n <= 100) {
+        printf("GOOD\n");i}
+    return 0;
+}
+int main() {
+    int n;
+    while (~scanf("%d", &n)) {
+        judge(n);
+    }
+    return 0;
+}
+```
+
+
+
+![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200803143528.png)
+
+```c
+#include <stdio.h>
+
+int main() {
+    int n;
+    while (~scanf("%d", &n)) {
+        switch (n) {
+            case 1:
+                printf("one\n");
+                break;
+            case 2:
+                printf("two\n");
+                break;
+            case 3:
+                printf("three\n");
+                break;
+            default:
+                printf("error\n");
+        }
+    }
+    return 0;
+}
+```
+
+
+
+![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200803143729.png)
+
+```c
+#include <stdio.h>
+
+int main() {
+    int n;
+    while (~scanf("%d", &n)) {
+        switch (n) {
+            case 1:
+                printf("one ");
+            case 2:
+                printf("two ");
+            case 3:
+                printf("three\n");
+                break;
+            default:
+                printf("error\n");
+        }
+    }
+    return 0;
+}
+```
+
+
+
+# 回文整数及CPU的分支结构预测
+
+![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200803143916.png)
+
+**题目大意：**
+
+> 确定一个整数是否是回文数。
+> 1234->错误
+> 12321-->真
+> 一些提示：
+> 0负整数可以是回文吗？（即，-1）
+> 1.如果您正在考虑将整数转换为字符串，请注意使用额外空间的限制。
+> 2.你也可以尝试反转一个整数。但是，如果您已经解决了“反向整数”问题，就知道反向整数可能会溢出。你会如何处理这种情况？
+> 3.有一种更通用的方法来解决这个问题。
+
+![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200802160327.png)
+
+![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200802155931.png)
+
+
+
+```c
+bool isPalindrome(int x){
+        if (__builtin_expect(!!(x < 0), 0)) return false;
+	    long long  sum = 0, z = x;
+	    while (x) {
+	    	sum = sum * 10 + x % 10;
+	    	x /= 10;
+	    }
+        return z == sum;
+}
+```
+
+
+
+# 循环结构
+
+## while循环
+
+![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200803144833.png)
+
+![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200803144651.png)
+
+```c
+#include <stdio.h>
+
+int main() {
+    int i = 1;
+    //while循环
+    while (i <= 100) {
+        printf("%d\n", i++);
+    }
+    //do-while循环
+    /*do {
+        printf("%d\n", n);
+        ++n;
+    } while (n <= 100);*/
+    return 0;
+}
+```
+
+## for循环
+
+![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200803145113.png)
+
+![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200803145232.png)
+
+```c
+#include <stdio.h>
+
+int main() {
+    for (int i = 1; i <= 100; i++) {
+		printf("%d\n", i);
+    }
+}
+```
+
+# 分支/循环 逻辑短路/断路等
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+int main() {
+    int a = 0, b = 0;
+    if ((a++) && (b++)) {
+        printf("true\n");
+    } else {
+        printf("false\n");
+    }
+    printf("test1 : a = %d, b = %d\n", a, b);
+    if ((a++) || (b++)) {
+        printf("true\n");
+    } else {
+        printf("false\n");
+    }
+    printf("test2 : a = %d, b = %d\n", a, b);
+    int n, cnt = 0;
+    scanf("%d", &n);
+    srand(time(0));
+    if (n & 1) { //奇数的二进制最后一位是1
+        printf("%d is a odd!\n", n);
+    } else {
+        printf("%d is a even!\n", n);
+    }
+    for (int i = 0; i < n; i++) {
+        int val = rand() % 100;
+        i && printf(" ");//控制空格的输出
+        printf("%d", val);
+        cnt += (val & 1);
+    }
+    printf("\n");
+    printf("odd nums : %d\n", cnt);
+    int x, digits = 0;
+    scanf("%d", &x);
+    do {
+        digits++;
+        x /= 10;
+    } while (x);
+    printf("digits : %d\n", digits);
+    return 0;
+}
+```
+
+
+
+
+
+
+
+# 欧拉计划002
+
+![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200804092255.png)
+
+**题目大意：**
+
+> 斐波那契数列中的每个新项都是通过将前两个项相加而生成的。 从1和2开始，前10个项将是：
+> 1，2，3，5，8，13，21，34，55，89，...
+> 通过考虑斐波那契数列中值不超过400万的项，找到偶值项的总和。
+
+
+
+
+
+
+
+**法一：**空间复杂度：O(n)
+
+```c
+#include <stdio.h>
+#define max_n 44
+#define N 4000000
+
+int fib[max_n + 5] = {1, 2, 0};
+
+int main() {
+    int sum = 0;
+    for (int i = 2; i <= max_n; i++) {
+        fib[i] = fib[i - 1] + fib[i - 2];
+    }
+    for (int i = 0; i <= max_n; i++) {
+        if (fib[i] <= N && !(fib[i] & 1)) sum += fib[i];
+    }
+    printf("%d\n", sum);
+    return 0;
+}
+```
+
+
+
+**法二：**空间复杂度：O(1)
+
+```c
+#include <stdio.h>
+
+#define max_n 4000000
+
+int main() {
+    int a = 0, b = 1, sum = 0;
+    while (a + b <=  max_n) {
+        b = a + b;
+        a = b - a;
+        if (b & 1) continue;
+        sum += b;
+    }
+    printf("%d\n", sum);
+    return 0;
+}
+```
+
+
+
+**法三：**滚动数组思想
+
+```c
+#include <stdio.h>
+#define max_n 4000000
+int fib[2] = {0, 1};
+
+int main() {
+    int sum = 0, n = 1;
+    while (fib[n % 2] + fib[(n - 1) % 2] <= max_n) {
+        n++;
+        fib[n % 2] = fib[(n - 1) % 2] + fib[(n - 2) % 2];
+        if (fib[n % 2] & 1) continue;
+        sum += fib[n % 2];
+    }
+    printf("%d\n", sum);
+    return 0;
+}
+```
+
+
+
+# #define和位运算
+
+**1、请定义一个宏，比较两个数a、b的大小，不能使用大于、小于、if语句** 
+
+```c
+//方法一
+#define maxmin(a, b) (((a) - (b)) >> 31? 1 : 0) 
+
+//方法二
+#define max(a,b) ((((long)((a)-(b)))&0x80000000)?b:a) 
+//若a > b ,则a-b的二进制最高位为0，与上任何数还是0，所以大数为a;
+//否则，a-b为负数，二进制最高位为1，与上0x80000000(最高位为1其他为0)之后为1，所以此时的大数为b. 
+
+//方法三
+#define COMPARE(x,y) ((x)-(y))+(abs((x)-(y)))?1:0
+```
+
+**2、请定义一个函数，求一个数的绝对值，不使用库函数**
+
+```c
+int abs(int x) {
+    return (((x>>31)&1)?(~x+1):x);
+}
+```
+
+**3、请定义一个宏，实现交换两个数**
+
+```
+#define swap(a, b) {\
+     __typeof(a) __temp = a;\
+    a = b; b = __temp;\
+}
+```
+
+# 欧拉计划003
+
+![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200804153513.png)
+
+**题目大意：**
+
+> 13915的质因子是5 7 13 29
+>
+> 那么600851475143的最大质因数是多少？
+
+![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200804155658.png)
+
+![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200804155726.png)
+
+![1596527048866](C:\Users\HP\AppData\Roaming\Typora\typora-user-images\1596527048866.png)
+
+
+
+> **第一**，ans一定是质因子的原因是num会把所有质因子的倍数都给筛掉。
+>
+>  i 等于合数被整除的情况不可能出现，也不可能循环到sqrt(n)以上的数，循环求i是不是它的质因数，直到i不是它的因数为止(i = 4能被整除的不可能出现，因为当i=2时已经被全求出来了)
+>             也就是说n % i==0的情况，只有当i为质数时才有可能出现。
+>
+> **第二，**一定要判断n是否等于1是因为当n刚开始就是质数的时候，最大的质因数就是他本身，所以肯定不为1；如果n刚开始是合数，在进行循环完之后的n如果不为1，说明此时的n已经是最大的质因数了，而且大于此时的ans，大于sqrt(n)，所以ans = n; 如果等于1，说明他的最大质因子小于sqrt(n)，此时的ans就是他的最大质因数。
+
+```c
+#include <stdio.h>
+#define max_n 600851475143LL
+
+int main() {
+    int ans = 0, i = 2;
+    long long n = max_n;
+    while (i * i <= n) {
+        if (n % i == 0) ans = i;//ans 为什么一定是素因子
+        while (n % i == 0) n /= i;
+        i++;
+    }
+    if (n != 1) ans = n;//为什么一定要判断
+    printf("%d\n", ans);
+    return 0;
+}
+```
+
+
+
+
+
+# 欧拉计划008
+
+![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200804203338.png)
+
+输入样例：
+
+```c
+73167176531330624919225119674426574742355349194934
+96983520312774506326239578318016984801869478851843
+85861560789112949495459501737958331952853208805511
+12540698747158523863050715693290963295227443043557
+66896648950445244523161731856403098711121722383113
+62229893423380308135336276614282806444486645238749
+30358907296290491560440772390713810515859307960866
+70172427121883998797908792274921901699720888093776
+65727333001053367881220235421809751254540594752243
+52584907711670556013604839586446706324415722155397
+53697817977846174064955149290862569321978468622482
+83972241375657056057490261407972968652414535100474
+82166370484403199890008895243450658541227588666881
+16427171479924442928230863465674813919123162824586
+17866458359124566529476545682848912883142607690042
+24219022671055626321111109370544217506941658960408
+07198403850962455444362981230987879927244284909188
+84580156166097919133875499200524063689912560717606
+05886116467109405077541002256983155200055935729725
+71636269561882670428252483600823257530420752963450
+```
+
+![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200804203548.png)
+
+
+
+![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200804203707.png)
+
+
+
+```c
+#include <stdio.h>
+#include <string.h>
+#define max_n 1000
+
+char num[max_n + 5];
+
+int main() {
+    int len = 0;
+    while (~scanf("%s", num + len)) len = strlen(num);
+    long long ans = 0, p = 1, zero = 0;
+    for (int i = 0; num[i]; i++) {
+        num[i] -= '0';
+        if (num[i]) p *= num[i];
+        else zero += 1;
+        if (i < 13) continue;
+        if (num[i - 13]) p /= num[i - 13];
+        else zero -= 1;
+        if (zero == 0 && p > ans) ans = p;
+    }
+    printf("%lld\n", ans);
+    return 0;
+}
+```
+
+
+
+# 欧拉计划015
+
+![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200804203940.png)
+
+
+
+**题目大意：**
+
+> 从2x2网格的左上角开始，只能向右和向下移动，到右下角正好有6条路线。
+>
+> 通过20×20网格有多少条这样的路径？
+
+
+
+**题目讲解**
+
+> 以2x2宫格为例，根据题目描述，有如下基本事实可以轻易得知:
+> 1、无论哪种方法，从左上角走到右下角总共需要4步
+> 2、无论哪种方法，横着肯定需要走2步，竖着也是2步
+>
+> **思维变换:**
+> 1、用R代表向右走，D代表向下走
+> 2、用一个仅包含R和D长度为4的字符串代表一种走法，例如: RRDD(第一步向右走，第二步向右走，第三步向下走，第四步向下走)
+> 3、字符串中肯定有两位为R,剩下的位置为D
+> 4、问题等价为: 4位中选出2位放R,有多少种不同的选择方法[组合问题]
+
+
+
+![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200804204313.png)
+
+
+
+```c
+//版本1
+#include <stdio.h>
+
+int main() {
+    long long m = 40, n = 20, ans = 1;
+    while (m != 20 || n) {
+        if (m != 20) ans *= m--;
+        if (n && ans % n == 0) ans /= n--;
+    }
+    printf("%lld\n", ans);
+    return 0;
+}
+```
+
+```c
+//版本2
+#include <stdio.h>
+#include <stdlib.h>
+#include <inttypes.h>
+
+int main() {
+    int64_t ans = 1, m = 20;
+    for (int32_t i = 40; i > 20; --i) {
+        ans *= i;
+        while (ans % m == 0 && m != 1) {
+            ans /= m;
+            --m;
+        }
+    }
+    printf("%"PRId64"\n", ans);
 }
 ```
 
