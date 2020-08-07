@@ -1,9 +1,65 @@
-# linux系统常用命令
+# C语言
+
+- [C语言](#c语言)
+- [linux 系统常用命令](#linux-系统常用命令)
+  - [基础的命令](#基础的命令)
+  - [文件内容的修改与查看](#文件内容的修改与查看)
+  - [文件的查找与定位](#文件的查找与定位)
+  - [用户有关操作](#用户有关操作)
+- [编辑器-vim](#编辑器-vim)
+  - [(1)基本终端命令](#1基本终端命令)
+  - [(2)模式](#2模式)
+  - [(3)在命令模式下的命令](#3在命令模式下的命令)
+  - [(4)末行模式下的命令](#4末行模式下的命令)
+  - [vim 文件编辑器常用命令](#vim-文件编辑器常用命令)
+- [C语言数据类型及其范围](#c语言数据类型及其范围)
+- [C语言输入输出](#c语言输入输出)
+- [printf家族函数讲解](#printf家族函数讲解)
+  - [sprintf函数](#sprintf函数)
+  - [fscanf和fprintf函数](#fscanf和fprintf函数)
+  - [linux系统文件权限一道例题](#linux系统文件权限一道例题)
+- [欧拉计划001](#欧拉计划001)
+- [欧拉计划006](#欧拉计划006)
+- [c语言基本运算符](#c语言基本运算符)
+- [C语言数学函数](#c语言数学函数)
+  - [pow函数](#pow函数)
+  - [sqrt函数](#sqrt函数)
+  - [ceil函数](#ceil函数)
+  - [floor函数](#floor函数)
+  - [abs函数](#abs函数)
+  - [fabs函数](#fabs函数)
+  - [log函数](#log函数)
+  - [log10函数](#log10函数)
+  - [acos函数](#acos函数)
+  - [随堂练习1](#随堂练习1)
+  - [随堂练习2](#随堂练习2)
+- [inttypes头文件讲解](#inttypes头文件讲解)
+- [欧拉计划028](#欧拉计划028)
+- [欧拉计划030](#欧拉计划030)
+- [欧拉计划004](#欧拉计划004)
+- [C语言关系运算符](#c语言关系运算符)
+- [分支结构](#分支结构)
+- [回文整数及CPU的分支结构预测](#回文整数及cpu的分支结构预测)
+- [循环结构](#循环结构)
+  - [while循环](#while循环)
+  - [for循环](#for循环)
+- [分支/循环 逻辑短路/断路等](#分支循环-逻辑短路断路等)
+- [欧拉计划002](#欧拉计划002)
+- [#define和位运算](#define和位运算)
+- [欧拉计划003](#欧拉计划003)
+- [欧拉计划008](#欧拉计划008)
+- [欧拉计划015](#欧拉计划015)
+- [函数](#函数)
+  - [函数指针](#函数指针)
+- [欧拉计划045](#欧拉计划045)
+- [欧拉计划005 欧几里得算法](#欧拉计划005-欧几里得算法)
+- [扩展欧几里得算法](#扩展欧几里得算法)
+- [变参函数](#变参函数)
+# linux 系统常用命令
 
 ## 基础的命令
 
 ![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/0726001.png)
-
 ls         查看目录下的内容
 
 > ls -al 查看所有隐藏文件并且查看其权限
@@ -12,13 +68,13 @@ ls         查看目录下的内容
 
 cd       目录跳转
 
-> ​	cd 后面什么都不加会默认会跳转到家目录
+>  cd 后面什么都不加会默认会跳转到家目录
 >
-> ​	cd  directoryname 跳转到当前目录
+>  cd  directoryname 跳转到当前目录
 >
-> ​	cd .. 跳转到上一级目录
+>  cd .. 跳转到上一级目录
 >
-> ​	cd -   回退到上一步操作
+>  cd -   回退到上一步操作
 
 pwd    查看当前工作目录
 
@@ -26,7 +82,7 @@ pwd    查看当前工作目录
 
 cp   拷贝命令
 
-> ​	cp  要拷贝的文件    拷贝到何处
+>  cp  要拷贝的文件    拷贝到何处
 
 clear  清空当前屏幕
 
@@ -62,13 +118,9 @@ tree   打印当前目录树 （如果没有则须安装tree; apt-get install tr
 
 ![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/0726006.png)
 
-
-
 ## 文件内容的修改与查看
 
 ![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/0726002.png)
-
-
 
 ## 文件的查找与定位
 
@@ -84,61 +136,51 @@ find  ./ -name filename  第一个参数是位置 第二个参数是名字
 
 # 编辑器-vim
 
-## (1)基本终端命令：
+## (1)基本终端命令
 
 创建文件：vim 文件名.后缀名
 
-## (2)模式：
+## (2)模式
 
-| 快捷键                  | 模式                                                         |
-| ----------------------- | ------------------------------------------------------------ |
-| 默认                    | 命令模式：一切命令都要从命令模式开始                         |
+| 快捷键                  | 模式                                                                 |
+| ----------------------- | -------------------------------------------------------------------- |
+| 默认                    | 命令模式：一切命令都要从命令模式开始                                 |
 | i键 a键 o键 I键 A键 O键 | 编辑模式：光标前面插，光标后面插，下一行插，行首插，行尾插，上一行插 |
-| Shift + :               | 末行模式                                                     |
+| Shift + :               | 末行模式                                                             |
 
-## (3)在命令模式下的命令：
+## (3)在命令模式下的命令
 
-yy	复制光标所在的这一行
+yy复制光标所在的这一行
 
 4yy  复制光标所在的行开始向下所在的4行
 
+p从光标开始的下一行开会粘贴
 
+dd删除（剪切）光标所在的行
 
-p	从光标开始的下一行开会粘贴
+4dd删除（剪切）光标所在的行开始向下的4行
 
+D从当前的光标开始剪切，一直到行末
 
+d0从当前光标开始剪切一直到行首
 
-dd	删除（剪切）光标所在的行
+x删除当前光标所在的位置，每次只会删除后一个
 
-4dd	删除（剪切）光标所在的行开始向下的4行
+X删除当前光标所在的位置，每次只会删除前一个
 
-D	从当前的光标开始剪切，一直到行末
+h向左移动
 
-d0	从当前光标开始剪切一直到行首
+j向下移动
 
-x	删除当前光标所在的位置，每次只会删除后一个
+k向上移动
 
-X	删除当前光标所在的位置，每次只会删除前一个
+l向右移动
 
+H当前屏幕的上方
 
+M当前屏幕的中间
 
-h	向左移动
-
-j	向下移动
-
-k	向上移动
-
-l	向右移动
-
-
-
-H	当前屏幕的上方
-
-M	当前屏幕的中间
-
-L	当前屏幕的下方
-
-
+L当前屏幕的下方
 
 ctrl + f --->向下翻一页代码
 
@@ -148,73 +190,51 @@ ctrl + d --->向下翻半页代码
 
 ctrl + u --->向上翻半页代码
 
+20G快速定位到第20行代码
 
+G快速回到整个代码的最后一行
 
-20G	快速定位到第20行代码
+gg快速回到整个代码的第一行
 
-G	快速回到整个代码的最后一行
+w向后跳一个单词的长度，即跳到下一个单词的开始处 (dw: 表示删一个单词)
 
-gg	快速回到整个代码的第一行
+b向前跳一个单词的长度，即跳到上一个单词的开始处
 
+u撤销刚刚的操作
 
-
-w	向后跳一个单词的长度，即跳到下一个单词的开始处 (dw: 表示删一个单词)
-
-b	向前跳一个单词的长度，即跳到上一个单词的开始处
-
-
-
-u	撤销刚刚的操作
-
-crtl + r	反撤销
-
-
+crtl + r反撤销
 
 选中一片代码：
 
-v	按单词选择
+v按单词选择
 
-V	按行选择
+V按行选择
 
+Crtl + {上移一片代码
 
-
-Crtl + {	上移一片代码
-
-Crtl + }	下移一片代码
-
-
+Crtl + }下移一片代码
 
 ">>"   (没有引号，因为>>会出现其他效果）向右移动代码
 
-<<	向左移动代码
+<<向左移动代码
 
+/之后输入字符串进行搜索
 
-
-/	之后输入字符串进行搜索
-
-
-
-r	替换光标所在位置的字符
+r替换光标所在位置的字符
 
 R:替换光标所在位置以及后面的字符
 
+.重复上一次的命令
 
-
-.	重复上一次的命令
-
-## (4)末行模式下的命令：
+## (4)末行模式下的命令
 
 %s/str1/str2/g:表示将代码中出现的str1替换为str2
 
 1,16s/str1/str2/g:表示将代码中1到16行出现的str1替换为str2
 
-
-
 sp 文件名.文件后缀:表示横着分屏
 
 vs 文件名.文件后缀:表示竖着分屏
-
-
 
 w:保存
 
@@ -232,9 +252,9 @@ wq:保存并且退出(也可以在命令模式下按shift + zz)
 
 进入命令行模式 按==shift==键 并且输入==:==
 
-​	w 保存
+w 保存
 
-​	q 退出
+q 退出
 
 在普通模式下 按下dd  删除当前行
 
@@ -257,7 +277,7 @@ shift + zz 可以快速保存
 # C语言数据类型及其范围
 
 如果是n位二进制数，那么无符号数的表示范围是0~（2^n) - 1；
-			     有符号数的表示范围是-2^(n - 1) ~(2^(n - 1)) -1
+     有符号数的表示范围是-2^(n - 1) ~(2^(n - 1)) -1
 
 ![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/2020-08-04_164147.png)
 
@@ -300,11 +320,11 @@ int main() {
 
 ## sprintf函数
 
->  int sprintf( char *buffer, const char *format [, argument,...] ); 
+> int sprintf( char *buffer, const char *format [, argument,...] ); 
 >
->  除了前两个参数固定外，可选参数可以是任意个。buffer是字符数组名；format是格式化字符串（像："%3d%6.2f%#x%o",%与#合用时，自动在十六进制数前面加上0x）。只要在printf中可以使用的格式化字符串，在sprintf都可以使用。其中的格式化字符串是此函数的精华。
+> 除了前两个参数固定外，可选参数可以是任意个。buffer是字符数组名；format是格式化字符串（像："%3d%6.2f%#x%o",%与#合用时，自动在十六进制数前面加上0x）。只要在printf中可以使用的格式化字符串，在sprintf都可以使用。其中的格式化字符串是此函数的精华。
 
-**eg: 将”test 1 2”写入数组s中** 
+**eg: 将”test 1 2”写入数组s中**
 
 ```c
 #include<stdio.h>
@@ -342,27 +362,27 @@ len = 26*/
 
 > int fscanf ( FILE *fp, char * format, ... );
 >
-> ​	 **功能**：  从stream流中连续读取能够匹配format格式的字符到参数列表中对应的变量里。 
+> **功能**：  从stream流中连续读取能够匹配format格式的字符到参数列表中对应的变量里。 
 >
-> format参数允许的格式为：“%[*][width][modifiers]type”。[]中的内容根据需要供选，可缺省，%type必须要有，不可省。 
+> format参数允许的格式为：“%[*][width][modifiers]type”。[]中的内容根据需要供选，可缺省，%type必须要有，不可省。
 >
-> int fprintf ( FILE *fp, char * format, ... );
+> int fprintf ( FILE *fp, char* format, ... );
 >
 > fprintf() 返回成功写入的字符的个数，失败则返回负数。
 >
-> fscanf() 返回参数列表中被成功赋值的参数个数。 
+> fscanf() 返回参数列表中被成功赋值的参数个数。
 
 ```c
 #include <stdio.h>
 int main() {
 　　FILE *in, *out;
 　　if ((in = fopen("//AUTOEXEC.BAT", "rt")) == NULL) {
-　　	fprintf(stderr, "Cannot open input file./n");
-　　	return 1;
+　　    fprintf(stderr, "Cannot open input file./n");
+　　    return 1;
 　　}
 　　if ((out = fopen("//AUTOEXEC.BAK", "wt")) == NULL) {
-　　	fprintf(stderr, "Cannot open output file./n");
-　　	return 1;
+　　    fprintf(stderr, "Cannot open output file./n");
+　　    return 1;
 　　}
 　　while (!feof(in)) {fputc(fgetc(in), out);}
 　　fclose(in);
@@ -494,12 +514,10 @@ int main() {
 
 ![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200730125555.png)
 
-> 题目大意：
->
-> 前十个自然数的平方和是385
-> 		前十个自然数之和的平方是3025，
-> 		因此，前十个自然数的平方和与之和的平方之差为3025-385=2640。
-> 		找出前一百个自然数的平方和与和的平方的差。
+> 题目大意：前十个自然数的平方和是385
+>前十个自然数之和的平方是3025，
+> 因此，前十个自然数的平方和与之和的平方之差为3025-385=2640。
+> 找出前一百个自然数的平方和与和的平方的差。
 
 **法一：**
 
@@ -523,11 +541,7 @@ n<sup>3</sup> = 3 $\sum_{i=1}^n{i^2}$ - 3$\sum_{i=1}^n{i}$ + n
 
 ![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200730142535.png)
 
-
-
 ![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200801184923.png)
-
-
 
 ```c
 #include <stdio.h>
@@ -539,14 +553,11 @@ int main() {
     printf("%d\n", sum2 * sum2 - sum1);
     return 0;
 }
-
 ```
 
 # c语言基本运算符
 
 ![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200730183739.png)
-
-
 
 **三次异或交换两个数字的原理**
 
@@ -580,84 +591,60 @@ int main() {
 }
 ```
 
-
-
 # C语言数学函数
 
 ![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200801131549.png)
-
-
 
 ## pow函数
 
 ![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200801132159.png)
 
-
-
 ## sqrt函数
 
 ![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200801132254.png)
-
-
 
 ## ceil函数
 
 ![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200801132335.png)
 
-
-
 ## floor函数
 
 ![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200801132404.png)
-
-
 
 ## abs函数
 
 ![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200801132437.png)
 
-
-
 ## fabs函数
 
 ![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200801132501.png)
-
-
 
 ## log函数
 
 ![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200801132528.png)
 
-
-
 ## log10函数
 
 ![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200801132547.png)
 
-
-
 ## acos函数
 
 ![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200801132626.png)
-
-
 
 ## 随堂练习1
 
 > 请写一个程序，输入一个数字 X， 输出数字X的立方根
 
 ```c
-#include <stdio.h> 
+#include <stdio.h>
 #include <math.h>
 int main() {
-	double X;
-	scanf("%lf", &x);
-	printf("%lf", pow(x, 1.0 / 3.0));
-	return 0;
+ double X;
+ scanf("%lf", &x);
+ printf("%lf", pow(x, 1.0 / 3.0));
+ return 0;
 }
 ```
-
-
 
 ## 随堂练习2
 
@@ -668,10 +655,10 @@ int main() {
 #include <math.h>
 #define PI acos(-1)
 int main() {
-	double x;
-	scanf("%lf", &x);
-	printf("%lf", PI / 180.0 * x);
-	return 0;
+ double x;
+ scanf("%lf", &x);
+ printf("%lf", PI / 180.0 * x);
+ return 0;
 }
 ```
 
@@ -705,8 +692,6 @@ int main() {
 
 ![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200802110843.png)
 
-
-
 **题目大意：**
 
 > 从数字1开始，沿顺时针方向向右移动，形成5乘5的螺旋，如下所示：
@@ -720,8 +705,8 @@ int main() {
 - 第n圈的矩阵边长为m = 2*n-1*
 - 第n圈的矩阵右上角的值为m<sup>2</sup>
 - 根据2点观察，可知:
-  			左上角为m<sup>2</sup>-m+1，左下角m<sup>2</sup>-2*m+2
-        			右下角为m<sup>2</sup>-3*m+3
+左上角为m<sup>2</sup>-m+1，左下角m<sup>2</sup>-2*m+2
+右下角为m<sup>2</sup>-3*m+3
 - 每一圈上四个角的值相加和为: 4*m<sup>2</sup>-6*m+6
 
 ```c
@@ -758,8 +743,6 @@ int main() {
     return 0;
 }
 ```
-
-
 
 # 欧拉计划030
 
@@ -805,15 +788,11 @@ int main() {
 
 ![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200802130049.png)
 
-
-
 **题目大意：**
 
 > 回文数在两个方向上都相同。 由两个两位数的乘积组成的最大回文数为9009 = 91 X 99。查找由两个3位数字的乘积组成的最大回文。
 
 ![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200802130253.png)
-
-
 
 ```c
 #include <stdio.h>
@@ -852,8 +831,6 @@ int main() {
 
 ![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200803142947.png)
 
-
-
 ```c
 #include <stdio.h>
 
@@ -876,8 +853,6 @@ int main() {
     return 0;
 }
 ```
-
-
 
 ![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200803143528.png)
 
@@ -905,8 +880,6 @@ int main() {
 }
 ```
 
-
-
 ![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200803143729.png)
 
 ```c
@@ -931,8 +904,6 @@ int main() {
 }
 ```
 
-
-
 # 回文整数及CPU的分支结构预测
 
 ![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200803143916.png)
@@ -952,21 +923,17 @@ int main() {
 
 ![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200802155931.png)
 
-
-
 ```c
 bool isPalindrome(int x){
         if (__builtin_expect(!!(x < 0), 0)) return false;
-	    long long  sum = 0, z = x;
-	    while (x) {
-	    	sum = sum * 10 + x % 10;
-	    	x /= 10;
-	    }
+     long long  sum = 0, z = x;
+     while (x) {
+      sum = sum * 10 + x % 10;
+      x /= 10;
+     }
         return z == sum;
 }
 ```
-
-
 
 # 循环结构
 
@@ -1058,12 +1025,6 @@ int main() {
 }
 ```
 
-
-
-
-
-
-
 # 欧拉计划002
 
 ![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200804092255.png)
@@ -1073,12 +1034,6 @@ int main() {
 > 斐波那契数列中的每个新项都是通过将前两个项相加而生成的。 从1和2开始，前10个项将是：
 > 1，2，3，5，8，13，21，34，55，89，...
 > 通过考虑斐波那契数列中值不超过400万的项，找到偶值项的总和。
-
-
-
-
-
-
 
 **法一：**空间复杂度：O(n)
 
@@ -1102,8 +1057,6 @@ int main() {
 }
 ```
 
-
-
 **法二：**空间复杂度：O(1)
 
 ```c
@@ -1124,8 +1077,6 @@ int main() {
 }
 ```
 
-
-
 **法三：**滚动数组思想
 
 ```c
@@ -1145,8 +1096,6 @@ int main() {
     return 0;
 }
 ```
-
-
 
 # #define和位运算
 
@@ -1196,14 +1145,12 @@ int abs(int x) {
 
 ![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200804155726.png)
 
-![1596527048866](C:\Users\HP\AppData\Roaming\Typora\typora-user-images\1596527048866.png)
-
-
+![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/1596527048866.png)
 
 > **第一**，ans一定是质因子的原因是num会把所有质因子的倍数都给筛掉。
 >
->  i 等于合数被整除的情况不可能出现，也不可能循环到sqrt(n)以上的数，循环求i是不是它的质因数，直到i不是它的因数为止(i = 4能被整除的不可能出现，因为当i=2时已经被全求出来了)
->             也就是说n % i==0的情况，只有当i为质数时才有可能出现。
+>i 等于合数被整除的情况不可能出现，也不可能循环到sqrt(n)以上的数，循环求i是不是它的质因数，直到i不是它的因数为止(i = 4能被整除的不可能出现，因为当i=2时已经被全求出来了)
+>也就是说n % i==0的情况，只有当i为质数时才有可能出现。
 >
 > **第二，**一定要判断n是否等于1是因为当n刚开始就是质数的时候，最大的质因数就是他本身，所以肯定不为1；如果n刚开始是合数，在进行循环完之后的n如果不为1，说明此时的n已经是最大的质因数了，而且大于此时的ans，大于sqrt(n)，所以ans = n; 如果等于1，说明他的最大质因子小于sqrt(n)，此时的ans就是他的最大质因数。
 
@@ -1224,10 +1171,6 @@ int main() {
     return 0;
 }
 ```
-
-
-
-
 
 # 欧拉计划008
 
@@ -1260,11 +1203,7 @@ int main() {
 
 ![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200804203548.png)
 
-
-
 ![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200804203707.png)
-
-
 
 ```c
 #include <stdio.h>
@@ -1291,21 +1230,15 @@ int main() {
 }
 ```
 
-
-
 # 欧拉计划015
 
 ![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200804203940.png)
-
-
 
 **题目大意：**
 
 > 从2x2网格的左上角开始，只能向右和向下移动，到右下角正好有6条路线。
 >
 > 通过20×20网格有多少条这样的路径？
-
-
 
 **题目讲解**
 
@@ -1319,11 +1252,7 @@ int main() {
 > 3、字符串中肯定有两位为R,剩下的位置为D
 > 4、问题等价为: 4位中选出2位放R,有多少种不同的选择方法[组合问题]
 
-
-
 ![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200804204313.png)
-
-
 
 ```c
 //版本1
@@ -1356,6 +1285,229 @@ int main() {
         }
     }
     printf("%"PRId64"\n", ans);
+}
+```
+
+# 函数
+
+![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200807125311.png)
+
+![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200807125838.png)
+
+```c
+//随堂练习2,此程序最多能计算到n = 25的阶乘
+#include <stdio.h>
+typedef long long ll;
+
+ll factorial(ll n) { return n ? n * factorial(n - 1) : 1; }
+int main() {
+    ll n;
+    scanf("%lld", &n);
+    printf("%lld\n", factorial(n));
+    return 0;
+}
+```
+
+![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200807130914.png)
+
+## 函数指针
+
+>  如果在程序中定义了一个函数，那么在编译时系统就会为这个函数代码分配一段存储空间，这段存储空间的首地址称为这个函数的地址。而且函数名表示的就是这个地址。既然是地址我们就可以定义一个指针变量来存放，这个指针变量就叫作函数指针变量，简称函数指针。
+>
+> 这个语句就定义了一个指向函数的指针变量 p。首先它是一个指针变量；其次前面的 int  表示这个指针变量可以指向返回值类型为 int 型的函数；后面括号中的两个 int 表示这个指针变量可以指向有两个参数且都是 int  型的函数。所以合起来这个语句的意思就是：定义了一个指针变量 p，该指针变量可以指向返回值类型为 int 型，且有两个整型参数的函数。p 的类型为 int(*)(int，int)。
+
+```
+int(*p)(int, int);
+```
+
+ **函数指针的定义方式为：** 
+
+函数返回值类型 (* 指针变量名) (函数参数列表);
+
+-  “函数返回值类型”表示该指针变量可以指向具有什么返回值类型的函数；
+
+- “函数参数列表”表示该指针变量可以指向具有什么参数列表的函数。这个参数列表中只需要写函数的参数类型即可。
+
+![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200807130951.png)
+
+# 欧拉计划045
+
+![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200807131046.png)
+
+**题目大意**
+
+>  三角形、五边形和六边形数字由以下公式生成: 
+>
+> 可以证明...
+>
+> 寻找下一个既是五边形数字又是六边形数字的三角形数字
+
+```c
+//方法一
+#include<stdio.h>
+#include <inttypes.h>
+
+typedef int64_t int1;
+int1 Triangle(int1 n) {
+    return n*(n + 1) / 2;
+}
+int1 Pentagonal(int1 n) {
+    return n * (3 * n - 1) / 2;
+}
+int1 Hexagonal(int1 n) {
+    return n * ( 2 * n - 1);
+}
+int1 binary_search(int1 (*func)(int1),int1 x) {
+    int1 head = 1, tail = x, mid ;
+    while(head <= tail) {
+        mid = (head + tail) / 2;
+        if(func(mid) == x)return mid;
+        if(func(mid) < x)head = mid + 1;
+        else tail = mid - 1;
+    }
+    return -1;
+}
+int main() {
+    int n = 286;
+    for(;; n++) {
+        if(binary_search(Triangle, Hexagonal(n)) == -1)continue; //3 5
+        if(binary_search(Pentagonal, Hexagonal(n)) == -1)continue;//3 6
+        printf("%" PRId64 "\n", Hexagonal(n));
+        break;
+    }
+    return 0;
+}
+```
+
+```c
+//方法二
+#include <stdio.h>
+#include <inttypes.h>
+
+int64_t Triangele(int64_t n) {
+    return n * (n + 1) / 2;
+}
+
+int64_t Pentagonal(int64_t n) {
+    return n * (3 * n - 1) / 2;
+}
+
+int64_t Hexagonal(int64_t n) {
+    return n * (2 * n - 1);
+}
+
+int64_t binary_search(int64_t (*func)(int64_t), int64_t n, int64_t x) {
+    int64_t head = 1, tail = n, mid;
+    while (head <= tail) {
+        mid = (head + tail) >> 1;
+        if (func(mid) == x) return 1;
+        if (func(mid) < x) head = mid + 1;
+        else tail = mid - 1;
+    }
+    return 0;
+}
+
+int main() {
+    int64_t n = 143;
+    while (1) {
+        n++;
+        int64_t tmp = Hexagonal(n);
+        if (!binary_search(Pentagonal, 2 * n, tmp)) continue;
+        break;
+    }
+    printf("%" PRId64 "\n", Hexagonal(n));
+    return 0;
+}
+```
+
+# 欧拉计划005 欧几里得算法
+
+![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200807235631.png)
+
+![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200807235724.png)
+
+![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200807235741.png)
+
+```c
+#include <stdio.h>
+
+int gcd(int a, int b) {
+    return (b ? gcd(b, a % b) : a);
+}
+
+int main() {
+    int a, b;
+    while (~scanf("%d%d", &a, &b)) {
+        printf("%d\n", gcd(a, b));
+    }
+    return 0;
+}
+```
+
+> 代码讲解:
+> 本轮的a值，就是上一轮的b值，本轮的b值就是上一轮的余数，当余数为0，说明上一轮的b值就是我们要求的两个数字的最大公约数，否则缩小a ,b范围。
+
+# 扩展欧几里得算法
+
+```c
+#include <stdio.h>
+
+int ex_gcd(int a, int b, int *x, int *y) {
+    if (!b) {
+        *x = 1, *y = 0;
+        return a;
+    }
+    int xx, yy, ret = ex_gcd(b, a % b, &xx, &yy);
+    *x = yy;
+    *y = xx - a / b * yy;
+    return ret;
+}
+
+int main() {
+    int a, b, x, y;
+    while (~scanf("%d%d", &a, &b)) {
+        printf("gcd(%d, %d) = %d\n", a, b, ex_gcd(a, b, &x, &y));
+        printf("%d * %d + %d * %d = %d\n", a, x, b, y, a * x + b * y);
+    }
+    return 0;
+}
+```
+
+# 变参函数
+
+实现可变参`max_int`, 从若干个传入的参数返回最大值
+
+`int max_int(int a, ... );` "..."传入的变参
+
+如何获得a往后的参数列表？`va_list`类型的变量
+
+如何定位a往后的第一个参数的位子？`va_start`函数
+
+如何获取下一个可变参列表中的参数？`va_arg`函数
+
+如何结束整个获取可变参数列表的动作？`va_end`函数
+
+```c
+#include<stdio.h>
+#include<stdarg.h>
+#include<inttypes.h>
+int max_int(int n, ...) { 
+    // n 个数字最大
+    va_list arg; //定义一个变量
+    va_start(arg, n); // 从n后第一个参数值开始放在arg中
+    int ans = INT32_MIN;
+    while(n--) { //循环读入 num个参数，取出其中的最大值，放到ans变量中
+        int temp = va_arg(arg, int); //取arg里的值，顺序取值
+        temp > ans && (ans = temp);
+    }
+    va_end(arg); //销毁
+    return ans;
+}
+int main() {
+    printf("%d\n",max_int(3, 3, 5, 16));
+    printf("%d\n",max_int(4, 4, 5, 17, 21));
+    printf("%d\n",max_int(4, 4, 5, 21, -32));
+    return 0;
 }
 ```
 
