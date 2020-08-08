@@ -46,6 +46,7 @@
 - [分支/循环 逻辑短路/断路等](#分支循环-逻辑短路断路等)
 - [欧拉计划002](#欧拉计划002)
 - [#define和位运算](#define和位运算)
+- [桶排序](#桶排序)
 - [欧拉计划003](#欧拉计划003)
 - [欧拉计划008](#欧拉计划008)
 - [欧拉计划015](#欧拉计划015)
@@ -55,6 +56,10 @@
 - [欧拉计划005 欧几里得算法](#欧拉计划005-欧几里得算法)
 - [扩展欧几里得算法](#扩展欧几里得算法)
 - [变参函数](#变参函数)
+- [欧拉计划005](#欧拉计划005)
+- [欧拉计划017](#欧拉计划017)
+- [欧拉计划032](#欧拉计划032)
+  
 # linux 系统常用命令
 
 ## 基础的命令
@@ -68,13 +73,13 @@ ls         查看目录下的内容
 
 cd       目录跳转
 
->  cd 后面什么都不加会默认会跳转到家目录
+> cd 后面什么都不加会默认会跳转到家目录
 >
->  cd  directoryname 跳转到当前目录
+> cd  directoryname 跳转到当前目录
 >
->  cd .. 跳转到上一级目录
+> cd .. 跳转到上一级目录
 >
->  cd -   回退到上一步操作
+> cd -   回退到上一步操作
 
 pwd    查看当前工作目录
 
@@ -82,7 +87,7 @@ pwd    查看当前工作目录
 
 cp   拷贝命令
 
->  cp  要拷贝的文件    拷贝到何处
+> cp  要拷贝的文件    拷贝到何处
 
 clear  清空当前屏幕
 
@@ -360,7 +365,7 @@ len = 26*/
 
 ## fscanf和fprintf函数
 
-> int fscanf ( FILE *fp, char * format, ... );
+> int fscanf ( FILE *fp, char* format, ... );
 >
 > **功能**：  从stream流中连续读取能够匹配format格式的字符到参数列表中对应的变量里。 
 >
@@ -450,7 +455,7 @@ int main() {
         swap(q, p);
     }
     if (n & 4) {
-        sprintf(q, "{%s}", p);
+        sprintf(q, "{%s%}", p);//正确写法是没有第二个%,切记！！
         swap(q, p);
     }
     printf("%s\n", p);
@@ -1131,6 +1136,10 @@ int abs(int x) {
 }
 ```
 
+# 桶排序
+
+![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/lALPDgQ9u_kcR__NApzNBA4_1038_668.png)
+
 # 欧拉计划003
 
 ![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200804153513.png)
@@ -1481,7 +1490,7 @@ int main() {
 
 如何获得a往后的参数列表？`va_list`类型的变量
 
-如何定位a往后的第一个参数的位子？`va_start`函数
+如何定位a往后的第一个参数的位置？`va_start`函数
 
 如何获取下一个可变参列表中的参数？`va_arg`函数
 
@@ -1507,6 +1516,162 @@ int main() {
     printf("%d\n",max_int(3, 3, 5, 16));
     printf("%d\n",max_int(4, 4, 5, 17, 21));
     printf("%d\n",max_int(4, 4, 5, 21, -32));
+    return 0;
+}
+```
+
+# 欧拉计划005
+
+![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200808224655.png)
+
+**题目大意**
+
+> 2520是可以被1到10的每一个数整除的最小数。
+>
+> 那么可以被1到20的每一个数字都整除的最小正整数是多少？
+
+
+
+**思考**
+1、能同时被3和5整除的最小的数字是多少?                    `15`
+2、能同时被9和15整除的最小的数字是多少?                  `45`
+3、能同时被a和b整除的最小的数字是多少?       `  a * b / gcd(a, b)`
+
+**代码实现**
+
+```c
+#include <stdio.h>
+#define max_n 20
+
+int gcd(int a, int b) {
+    return b ? gcd(b, a % b) : a;
+}
+int main() {
+    int ans = 1;
+    for (int i = 1; i <= max_n; i++) {
+        ans *= i / gcd(ans, i);
+    }
+    printf("%d\n", ans);
+    return 0;
+}
+```
+
+# 欧拉计划017
+
+![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200808231446.png)
+
+**题目大意**
+
+>  如果数字 1 到 5 用单词写出来: 1 、 2 、 3 、 4 、 5，然后总共使用 3 + 5 + 4 = 19 个字母。
+> 如果将 1 到 1000 (1,000) 之间的所有数字都写在单词中，将使用多少个字母？
+> 注意: 不要计算空格或连字符。例如，342 (342) 包含 23 个字母，115 (115) 包含 20 个字母。在写出数字时使用 “and” 符合英国的用法。 
+
+![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200808231950.png)
+
+![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200808232016.png)
+
+```c
+#include <stdio.h>
+#define max_n 1000
+
+static int num1[20] = {
+    0, 3, 3, 5, 4, 4, 3, 5, 5, 4, 3,
+    6, 6, 8, 8, 7, 7, 9, 8, 8
+};
+
+static int num2[10] = {
+    0, 0, 6, 6, 5, 5, 5, 7, 6, 6
+};
+
+int get_letters(int n) {
+    if (n < 20) return num1[n];
+    if (n < 100) return num2[n / 10] + num1[n % 10];
+    if (n < 1000) {
+        if (n % 100 == 0) return num1[n / 100] + 7;
+        else return num1[n / 100] + 10 + get_letters(n % 100);
+    }
+    return 11;
+}
+
+int main() {
+    int sum = 0;
+    for (int i = 1; i <= max_n; i++) {
+        sum += get_letters(i);
+    }
+    printf("%d\n", sum);
+    return 0;
+}
+```
+
+# 欧拉计划032
+
+![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200808232159.png)
+
+**题目大意**
+
+>  我们会说，如果一个数字 1 到n只使用一次，那么它就是泛数字; 例如，5 位数字 15234，是 1 到 5 pandigital。
+> 乘积 7254 是不寻常的，因为恒等式 39*186 = 7254，包含乘法、乘数，乘积是 1 到 9 泛数字。
+> 找出乘数/乘积可以写成 1 到 9 pandigital的所有乘积的总和。
+> 提示: 有些乘积可以通过多种方式获得，所以一定要在你的总数中只包含一次。 
+
+**思路引导**
+
+> 1、枚举a*b=c中的乘数与被乘数，判断(a, b，c)是否符合题目的要求
+>
+> 2、其中a<b
+>
+> 3、如果a,b,c 的位数不够9位的话，就将b增大一点点
+>
+> 4、如果a,b,c的位数超过9位的话，就break出枚举b的循环
+>
+> 5、如何快速得到a,b,c的总位数呢?
+
+![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200808232455.png)
+
+![](http://miracle0609.oss-cn-beijing.aliyuncs.com/miracle0609/img/20200808232523.png)
+
+```c
+#include <stdio.h>
+#include <math.h>
+
+int digit(int n) {
+    return floor(log10(n)) + 1;
+}
+
+int add_to_num(int *num, int n) {
+    while (n) {
+        if (num[n % 10]) return 0;
+        num[n % 10] += 1;
+        n /= 10;
+    }
+    return 1;
+}
+
+int is_val(int a, int b, int c) {
+    if (digit(a) + digit(b) + digit(c) - 9) return 0;
+    int num[10] = {0};
+    num[0] = 1;
+    int flag = 1;
+    flag = flag && add_to_num(num, a);
+    flag = flag && add_to_num(num, b);
+    flag = flag && add_to_num(num, c);
+    return flag;
+}
+
+int keep[10000] = {0};
+
+int main() {
+    int sum = 0;
+    for (int a = 1; a < 100; a++) {
+        for (int b = a + 1; b < 10000; b++) {
+            if (!is_val(a, b, a * b)) continue;
+            if (keep[a * b]) continue;
+            sum += a * b;
+            keep[a * b] = 1;
+            printf("%d * %d = %d\n", a, b, a * b);
+        }
+    }
+    printf("%d\n", sum);
     return 0;
 }
 ```
